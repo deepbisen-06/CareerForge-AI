@@ -37,13 +37,12 @@
 6. [Quantitative Evaluation Benchmarks](#-quantitative-evaluation-benchmarks)
 7. [Technology Stack](#-technology-stack)
 8. [Database Architecture & Schema](#-database-architecture--schema)
-9. [Getting Started & Installation Guide](#-getting-started--installation-guide)
-10. [Instant 1-Click Demo Access](#-instant-1-click-demo-access)
-11. [Automated Verification & Live Demo Script](#-automated-verification--live-demo-script)
-12. [Cloud Deployment (Google Cloud Run & Docker)](#-cloud-deployment-google-cloud-run--docker)
-13. [Guardrails & Responsible AI](#-guardrails--responsible-ai)
-14. [Project Directory Layout](#-project-directory-layout)
-15. [License](#-license)
+9. [Instant 1-Click Demo Access](#-instant-1-click-demo-access)
+10. [Automated Verification & Live Demo Script](#-automated-verification--live-demo-script)
+11. [Cloud Deployment (Google Cloud Run & Docker)](#-cloud-deployment-google-cloud-run--docker)
+12. [Guardrails & Responsible AI](#-guardrails--responsible-ai)
+13. [Project Directory Layout](#-project-directory-layout)
+14. [License](#-license)
 
 ---
 
@@ -353,63 +352,6 @@ CareerForge AI includes a benchmark evaluation suite (`backend/run_evaluation.py
 - **Icons**: Lucide React
 - **Charts & Gauges**: Recharts (ResponsiveContainer, PieChart, BarChart)
 - **Routing**: React Router v7 with `ProtectedRoute` guards
-
----
-
-## 💻 Getting Started & Installation Guide
-
-### Prerequisites
-- **Python 3.10+**
-- **Node.js v18+ & npm**
-- **Git**
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com/deepbisen-06/CareerForge-AI.git
-cd CareerForge-AI
-```
-
-### 2. Configure Environment Variables
-Copy `.env.example` to `.env` in the project root:
-```bash
-cp .env.example .env
-```
-*(Optional: Add your `GEMINI_API_KEY` to enable live Gemini LLM calls. The system includes full deterministic fallback providers out-of-the-box).*
-
-### 3. Backend Setup
-```bash
-# Navigate to backend
-cd backend
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Seed canonical skills, demo student, and 1,000 curated internships
-python seed_data.py
-
-# Run test suite
-pytest tests/ -v
-
-# Run RAG & Matching evaluation benchmark
-python run_evaluation.py
-
-# Start FastAPI backend server
-uvicorn app.main:app --reload --port 8000
-```
-- API & Swagger Docs will be live at: [http://localhost:8000/docs](http://localhost:8000/docs)
-
-### 4. Frontend Setup
-```bash
-# In a separate terminal, navigate to frontend
-cd frontend
-
-# Install dependencies
-npm install
-
-# Start Vite development server
-npm run dev
-```
-- Web Application will be live at: [http://localhost:5173](http://localhost:5173)
 
 ---
 
