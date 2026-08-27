@@ -1,0 +1,22 @@
+from app.models.entities import (
+    User,
+    Profile,
+    Resume,
+    Skill,
+    UserSkill,
+    Education,
+    Experience,
+    Project,
+    Internship,
+    InternshipSkill,
+    Application,
+    SkillGap,
+    GeneratedDocument,
+    InterviewSession,
+    InterviewQuestion,
+    ChatSession,
+    ChatMessage,
+    Notification,
+    AgentRun,
+    AgentEvent
+)
