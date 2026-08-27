@@ -21,7 +21,17 @@ import {
   AgentEvent
 } from '../types';
 
-const API_BASE = (import.meta as any).env?.VITE_API_URL || 'http://localhost:8000/api/v1';
+const rawApiUrl = (import.meta as any).env?.VITE_API_URL || (import.meta as any).env?.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
+
+const normalizeApiBase = (url: string): string => {
+  const trimmed = url.trim().replace(/\/+$/, '');
+  if (!trimmed.endsWith('/api/v1')) {
+    return `${trimmed}/api/v1`;
+  }
+  return trimmed;
+};
+
+const API_BASE = normalizeApiBase(rawApiUrl);
 
 async function request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   const token = localStorage.getItem('token');

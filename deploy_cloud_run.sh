@@ -8,9 +8,11 @@ PROJECT_ID=${GCP_PROJECT_ID:-$(gcloud config get-value project 2>/dev/null)}
 REGION=${GCP_REGION:-"us-central1"}
 SERVICE_NAME="careerforge-agent-backend"
 IMAGE_NAME="gcr.io/${PROJECT_ID}/${SERVICE_NAME}:latest"
+CORS_ALLOWED=${BACKEND_CORS_ORIGINS:-"*"}
+PROVIDER=${LLM_PROVIDER:-"gemini"}
 
 echo "================================================================="
-echo " Deploying CareerForge AI (Taskmaster Agent) to Google Cloud Run "
+echo " Deploying CareerForge AI (FastAPI + Agent) to Google Cloud Run "
 echo " Project: ${PROJECT_ID} | Region: ${REGION} "
 echo "================================================================="
 
@@ -29,7 +31,8 @@ gcloud run deploy "${SERVICE_NAME}" \
   --platform managed \
   --region "${REGION}" \
   --allow-unauthenticated \
-  --set-env-vars "LLM_PROVIDER=gemini,GEMINI_API_KEY=${GEMINI_API_KEY}" \
+  --port 8080 \
+  --set-env-vars "LLM_PROVIDER=${PROVIDER},GEMINI_API_KEY=${GEMINI_API_KEY},BACKEND_CORS_ORIGINS=${CORS_ALLOWED}" \
   --memory 1Gi \
   --cpu 1 \
   --timeout 300
@@ -37,8 +40,13 @@ gcloud run deploy "${SERVICE_NAME}" \
 SERVICE_URL=$(gcloud run services describe "${SERVICE_NAME}" --platform managed --region "${REGION}" --format 'value(status.url)')
 
 echo "================================================================="
-echo " CareerForge AI successfully deployed to Google Cloud Run! "
+echo " CareerForge AI Backend successfully deployed to Google Cloud Run! "
 echo " Service Endpoint: ${SERVICE_URL} "
 echo " Health Check:     ${SERVICE_URL}/health "
 echo " OpenAPI Docs:     ${SERVICE_URL}/docs "
+echo "================================================================="
+echo ""
+echo "Next Step for Frontend (Vercel):"
+echo "Set VITE_API_URL in your Vercel Project Settings:"
+echo "VITE_API_URL=${SERVICE_URL}/api/v1"
 echo "================================================================="
